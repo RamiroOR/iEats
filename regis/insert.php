@@ -13,15 +13,15 @@ if(isset($_POST["submit"])){
 		$email = $_POST["email"] ;
 		$username = $_POST["username"] ;
 		$pass = $_POST["pass"] ;
-		$cliente = $_POST["cliente"] ;
 
-		$query = "insert into clientes(name,email,username,cliente,pass) values('$name', '$email', '$username', '$cliente', '$pass')";
+		$query = "insert into clientes(name,email,username,pass) values('$name', '$email', '$username', '$pass')";
 
-		$run = mysqli_query($conn,$query) or die (mysqli_error());
+		$run = mysqli_query($conn,$query) or die (mysqli_error($conn));
 
         if($run){
             $alert = '<script>alert("Se ha registrado con exito!")</script>';
 			echo $alert;
+			header("Location: ../indexUser.php");
 
         }
         else{

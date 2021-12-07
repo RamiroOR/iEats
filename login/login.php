@@ -4,7 +4,7 @@ include "conect.php";
 if (isset($_POST["email"]) && isset($_POST["pass"]) ){
     function validate($data){
         $data = trim($data);
-        $data = stripslashes($date);
+        $data = stripslashes($data);
         $data = htmlspecialchars($data);
         return $data;
     }
@@ -38,18 +38,18 @@ if (isset($_POST["email"]) && isset($_POST["pass"]) ){
     exit();
                }
                else{
-                header("Location: ../main/mainlogin1.php?error=Incorect User name or password");
+                header("Location: index.php?error=Incorect User name or password");
                 exit();
                }
            }
            else{
-            header("Location: ../main/mainlogin1.php?error=Incorect User name or password");           
+            header("Location: index.php?error=Incorect User name or password");           
            }
         }
     }
 
 else{
-    header("Location: ../main/mainlogin1.php?error=Incorect User name or password");
+    header("Location: index.php?error=Incorect User name or password");
     exit();
 }
 
