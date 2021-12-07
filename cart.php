@@ -79,9 +79,8 @@ if (isset($_SESSION['carrito'])) {
                 <div class="title">
                     <div class="row">
                         <div class="col">
-                            <h4><b>Shopping Cart</b></h4>
+                            <h4><b>Tu carrito</b></h4>
                         </div>
-                        <div class="col align-self-center text-right text-muted">3 items</div>
                     </div>
                 </div>
                 <?php
@@ -116,7 +115,7 @@ if (isset($_SESSION['carrito'])) {
                 <?php }
                 } ?>
 
-                <div class="back-to-shop"><a href="indexUser.php">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
+                <div class="back-to-shop"><a href="indexUser.php">&leftarrow;</a><span class="text-muted">Seguir comprando</span></div>
             </div>
             <div class="col-md-4 summary">
                 <div>
@@ -124,17 +123,17 @@ if (isset($_SESSION['carrito'])) {
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col" style="padding-left:0;">ITEMS 3</div>
+                    <div class="col" style="padding-left:0;"><?php echo count($arregloCarrito) ?> Productos</div>
                     <div class="col text-right">$<?php echo $total ?></div>
                 </div>
                 <form>
-                    <p>SHIPPING</p>
-                    <div class="col text-right">$<?php echo $total + ($total * .16) ?></div>
+                    <p>Gastos de envio</p>
+                    <div class="col text-right">$<?php echo ($total * .10) ?></div>
                 </form>
                 <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
-                    <div class="col">TOTAL PRICE</div>
-                    <div class="col text-right">&euro; 137.00</div>
-                </div> <button class="btn">CHECKOUT</button>
+                    <div class="col">TOTAL</div>
+                    <div class="col text-right">$<?php echo $total + ($total * .10) ?></div>
+                </div> <button class="btn">Pagar ahora</button>
             </div>
         </div>
     </div>
