@@ -1,10 +1,9 @@
 <?php
-session_start();  
+session_start();
 include("./php/conexion.php");
 if (isset($_GET['id_restaurante'])) {
-    $resultado = $conexion->query("SELECT * FROM productos WHERE id_restaurante=" .$_GET['id_restaurante']);
-    if($resultado->num_rows > 0) {
-        
+    $resultado = $conexion->query("SELECT * FROM productos WHERE id_restaurante=" . $_GET['id_restaurante']);
+    if ($resultado->num_rows > 0) {
     } else {
         header("Location index.php");
     }
@@ -47,10 +46,19 @@ if (isset($_GET['id_restaurante'])) {
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                 </ul>
                 <form class="d-flex">
-                <a class="btn btn-outline-dark" href="cart.php" role="button">
+                    <a class="btn btn-outline-dark" href="cart.php" role="button">
                         <i class="bi-cart-fill me-1"></i>
                         Carrito
-                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                        <span class="badge bg-dark text-white ms-1 rounded-pill">
+                            <?php
+                            if (isset($_SESSION['carrito'])) {
+                                $arreglo = $_SESSION['carrito'];
+                                echo count($arreglo);
+                            } else {
+                                echo "0";
+                            }
+                            ?>
+                        </span>
                     </a>
                     &nbsp; &nbsp; &nbsp;
                     <div class="dropdown">
@@ -86,7 +94,7 @@ if (isset($_GET['id_restaurante'])) {
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 <div class="col mb-5">
                     <?php
-                    while($fila = $resultado->fetch_assoc()){
+                    while ($fila = $resultado->fetch_assoc()) {
                     ?>
                         <div class="card h-100">
                             <!-- Product image-->

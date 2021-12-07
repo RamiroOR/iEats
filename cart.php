@@ -15,6 +15,7 @@ if (isset($_SESSION['carrito'])) {
         if ($encontro == true) {
             $arreglo[$numero]['cantidad'] = $arreglo[$numero]['cantidad'] + 1;
             $_SESSION['carrito'] = $arreglo;
+            header("Location: ./cart.php");
         } else {
             $nombre = "";
             $precio = "";
@@ -33,6 +34,7 @@ if (isset($_SESSION['carrito'])) {
             );
             array_push($arreglo, $arregloNuevo);
             $_SESSION['carrito'] = $arreglo;
+            header("Location: ./cart.php");
         }
     }
 } else {
@@ -53,6 +55,7 @@ if (isset($_SESSION['carrito'])) {
             'cantidad' => 1
         );
         $_SESSION['carrito'] = $arreglo;
+        header("Location: ./cart.php");
     }
 }
 ?>
@@ -98,24 +101,27 @@ if (isset($_SESSION['carrito'])) {
                         <div class="col">
                             <div class="row text-muted"><?php echo $arregloCarrito[$i]['nombre']; ?></div>
                         </div>
-                        <div class="col colInput"> 
-                        <button class="js-btn-minus btnIncrementar" type="button">&minus;</button>
-                        <input type="text" class="form-control text-center txtCantidad" data-precio="<?php echo $arregloCarrito[$i]['precio']; ?>" data-id="<?php echo $arregloCarrito[$i]['id']; ?>" value="<?php echo $arregloCarrito[$i]['cantidad']; ?>" placeholder="" aria-describedby="button-addon1">
-                        <button class="js-btn-plus btnIncrementar" type="button">&plus;</button>
+                        <div class="col colInput">
+                            <button class="js-btn-minus btnIncrementar" type="button">&minus;</button>
+                            <input type="text" class="form-control text-center txtCantidad"
+                                data-precio="<?php echo $arregloCarrito[$i]['precio']; ?>"
+                                data-id="<?php echo $arregloCarrito[$i]['id']; ?>"
+                                value="<?php echo $arregloCarrito[$i]['cantidad']; ?>" placeholder=""
+                                aria-describedby="button-addon1">
+                            <button class="js-btn-plus btnIncrementar" type="button">&plus;</button>
                         </div>
                         <div class="col cant<?php echo $arregloCarrito[$i]['id']; ?>">
                             $<?php echo $arregloCarrito[$i]['precio'] * $arregloCarrito[$i]['cantidad']; ?>
-                            
                         </div>
-
-                        <button class="close btnEliminar" data-id="<?php echo $arregloCarrito[$i]['id'] ?>">&#10005;</button>
-
+                        <button class="close btnEliminar"
+                            data-id="<?php echo $arregloCarrito[$i]['id'] ?>">&#10005;</button>
                     </div>
                 </div>
                 <?php }
                 } ?>
 
-                <div class="back-to-shop"><a href="indexUser.php">&leftarrow;</a><span class="text-muted">Seguir comprando</span></div>
+                <div class="back-to-shop"><a href="indexUser.php">&leftarrow;</a><span class="text-muted">Seguir
+                        comprando</span></div>
             </div>
             <div class="col-md-4 summary">
                 <div>
@@ -123,17 +129,26 @@ if (isset($_SESSION['carrito'])) {
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col" style="padding-left:0;"><?php echo count($arregloCarrito) ?> Producto(s)</div>
-                    <div class="col text-right">$<?php echo $total ?></div>
+                    <div class="col" style="padding-left:0;">
+                        <?php 
+                    if (isset($_SESSION['carrito'])){
+                        echo count($arregloCarrito);
+                        }else{
+                        echo "0";
+                        }
+                        ?>
+                        Producto(s)</div>
+                    <div class="col text-right totalOrden" data-total="<?php echo $total ?>">$<?php echo $total ?></div>
                 </div>
-                <form>
-                    <p>Gastos de envio</p>
-                    <div class="col text-right">$<?php echo ($total * .10) ?></div>
-                </form>
+                <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                    <div class="col" style="padding-left:0;">Envio</div>
+                    <div class="col text-right">$<?php echo ($total * .16) ?></div>
+                </div>
+
                 <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                     <div class="col">TOTAL</div>
                     <div class="col text-right">$<?php echo $total + ($total * .10) ?></div>
-                </div> <button class="btn" onclick="window.location='checkout.php'" >Pagar ahora</button>
+                </div> <button class="btn" onclick="window.location='checkout.php'">Pagar ahora</button>
             </div>
         </div>
     </div>
@@ -152,6 +167,7 @@ if (isset($_SESSION['carrito'])) {
                 }
             }).done(function(respuesta) {
                 boton.parent('div').parent('div').remove();
+                setTimeout("window.location = 'cart.php'", 100);
             });
         });
 
@@ -159,8 +175,8 @@ if (isset($_SESSION['carrito'])) {
             var cantidad = $(this).val();
             var precio = $(this).data('precio');
             var id = $(this).data('id');
-            var mult = parseFloat(cantidad)*parseFloat(precio);
-            $(".cant"+id).text(mult);
+            var mult = parseFloat(cantidad) * parseFloat(precio);
+            $(".cant" + id).text(mult);
             incrementar(cantidad, precio, id);
         });
 
@@ -182,7 +198,8 @@ if (isset($_SESSION['carrito'])) {
                     cantidad: cantidad
                 }
             }).done(function(respuesta) {
-                boton.parent('td').parent('tr').remove();
+                setTimeout("window.location = 'cart.php'", 100);
+                boton.parent('div').parent('div').remove();
             });
         }
     });

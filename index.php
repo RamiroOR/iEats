@@ -37,7 +37,7 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                 </ul>
                 <form class="d-flex">
-                    <button class="btn btn-outline-dark" type="button" onclick="location.href='cart.php'">
+                    <button class="btn btn-outline-dark" type="button" onclick="location.href='login/index.php'">
                         <i class="bi-cart-fill me-1"></i>
                         Carrito
                         <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
@@ -87,7 +87,7 @@
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="./restaurante.php?id_restaurante=<?php echo $fila['id_restaurante'];?>">Ver Menu</a>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="login/index.php">Ver Menu</a>
                             </div>
                         </div>
                     </div>
