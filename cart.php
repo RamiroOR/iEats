@@ -119,11 +119,11 @@ if (isset($_SESSION['carrito'])) {
             </div>
             <div class="col-md-4 summary">
                 <div>
-                    <h5><b>Summary</b></h5>
+                    <h5><b>Detalles</b></h5>
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col" style="padding-left:0;"><?php echo count($arregloCarrito) ?> Productos</div>
+                    <div class="col" style="padding-left:0;"><?php echo count($arregloCarrito) ?> Producto(s)</div>
                     <div class="col text-right">$<?php echo $total ?></div>
                 </div>
                 <form>
@@ -133,7 +133,7 @@ if (isset($_SESSION['carrito'])) {
                 <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                     <div class="col">TOTAL</div>
                     <div class="col text-right">$<?php echo $total + ($total * .10) ?></div>
-                </div> <button class="btn">Pagar ahora</button>
+                </div> <button class="btn" onclick="window.location='checkout.php'" >Pagar ahora</button>
             </div>
         </div>
     </div>
