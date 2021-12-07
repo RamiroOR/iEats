@@ -99,14 +99,18 @@ if (isset($_SESSION['carrito'])) {
                         <div class="col">
                             <div class="row text-muted"><?php echo $arregloCarrito[$i]['nombre']; ?></div>
                         </div>
-                        <div class="col"> <button class="btnIncrementar" type="button">&minus;</button>
-                        <input type="text" class="form-control text-center txtCantidad" data-precio="<?php echo $arregloCarrito[$i]['precio']; ?>" data-id="<?php echo $arregloCarrito[$i]['id']; ?>" value="<?php echo $arregloCarrito[$i]['cantidad']; ?>" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                        <button class="btnIncrementar" type="button">&plus;</button>
+                        <div class="col colInput"> 
+                        <button class="js-btn-minus btnIncrementar" type="button">&minus;</button>
+                        <input type="text" class="form-control text-center txtCantidad" data-precio="<?php echo $arregloCarrito[$i]['precio']; ?>" data-id="<?php echo $arregloCarrito[$i]['id']; ?>" value="<?php echo $arregloCarrito[$i]['cantidad']; ?>" placeholder="" aria-describedby="button-addon1">
+                        <button class="js-btn-plus btnIncrementar" type="button">&plus;</button>
                         </div>
-                        <div class="col">
+                        <div class="col cant<?php echo $arregloCarrito[$i]['id']; ?>">
                             $<?php echo $arregloCarrito[$i]['precio'] * $arregloCarrito[$i]['cantidad']; ?>
-                            <button class="close btnEliminar" data-id="<?php echo $arregloCarrito[$i]['id'] ?>">&#10005;</button>
+                            
                         </div>
+
+                        <button class="close btnEliminar" data-id="<?php echo $arregloCarrito[$i]['id'] ?>">&#10005;</button>
+
                     </div>
                 </div>
                 <?php }
@@ -134,6 +138,7 @@ if (isset($_SESSION['carrito'])) {
             </div>
         </div>
     </div>
+    <script src="js/main.js"></script>
     <script>
     $(document).ready(function() {
         $(".btnEliminar").click(function(event) {
@@ -155,6 +160,8 @@ if (isset($_SESSION['carrito'])) {
             var cantidad = $(this).val();
             var precio = $(this).data('precio');
             var id = $(this).data('id');
+            var mult = parseFloat(cantidad)*parseFloat(precio);
+            $(".cant"+id).text(mult);
             incrementar(cantidad, precio, id);
         });
 
@@ -183,9 +190,7 @@ if (isset($_SESSION['carrito'])) {
     </script>
     <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'>
     </script>
-    <script type='text/javascript' src=''></script>
-    <script type='text/javascript' src=''></script>
-    <script type='text/Javascript'></script>
+
 </body>
 
 </html>
