@@ -9,18 +9,18 @@ for ($i = 0; $i < count($arregloCarrito); $i++) {
 }
 $direccion = $_REQUEST["direccion"];
 $fecha = date('Y-m-d h:m:s');
-echo "direccion: ".$direccion.' fecha: '.$fecha."total: ".$total." id_cliente: ".$idCliente;
 $conexion -> query("INSERT INTO pedidos (direccion,fecha,total,paymentStatus,arriveStatus,id_cliente) values ('$direccion','$fecha',$total,'0','0',$idCliente)") or die($conexion->error);
 $id_pedido = $conexion->insert_id;
 for ($i = 0; $i < count($arregloCarrito); $i++) {
-    $conexion->query("INSERT INTO producto_pedido (id_pedido,id_producto,cantidad,precio,subtotal)
+    $conexion -> query("INSERT INTO producto_pedido (id_pedido,id_producto,id_restaurante,cantidad,precio,subtotal)
         values(
         $id_pedido,
-        " . $arregloCarrito[$i]['id'] . ",
-        " . $arregloCarrito[$i]['cantidad'] . ",
-        " . $arregloCarrito[$i]['precio'] . ",
-        " . $arregloCarrito[$i]['cantidad'] * $arregloCarrito[$i]['precio'] . ")"
-        or die($conexion->error));
+        ".$arregloCarrito[$i]['id'].",
+        ".$arregloCarrito[$i]['id_restaurante'].",
+        ".$arregloCarrito[$i]['cantidad'].",
+        ".$arregloCarrito[$i]['precio'].",
+        ".$arregloCarrito[$i]['cantidad'] * $arregloCarrito[$i]['precio']."
+        ) ") or die($conexion->error);
 }
     unset($_SESSION['carrito']);
 ?>

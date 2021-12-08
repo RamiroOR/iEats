@@ -25,12 +25,14 @@ if (isset($_SESSION['carrito'])) {
             $nombre = $fila['1'];
             $precio = $fila['2'];
             $imagen = $fila['4'];
+            $id_restaurante = $fila['5'];
             $arregloNuevo = array(
                 'id' => $_GET['id_producto'],
                 'nombre' => $nombre,
                 'precio' => $precio,
                 'imagen' => $imagen,
-                'cantidad' => 1
+                'cantidad' => 1,
+                'id_restaurante' => $id_restaurante
             );
             array_push($arreglo, $arregloNuevo);
             $_SESSION['carrito'] = $arreglo;
@@ -47,12 +49,14 @@ if (isset($_SESSION['carrito'])) {
         $nombre = $fila['1'];
         $precio = $fila['2'];
         $imagen = $fila['4'];
+        $id_restaurante = $fila['5'];
         $arreglo[] = array(
             'id' => $_GET['id_producto'],
             'nombre' => $nombre,
             'precio' => $precio,
             'imagen' => $imagen,
-            'cantidad' => 1
+            'cantidad' => 1,
+            'id_restaurante' => $id_restaurante
         );
         $_SESSION['carrito'] = $arreglo;
         header("Location: ./cart.php");
