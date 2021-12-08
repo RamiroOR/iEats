@@ -1,8 +1,9 @@
 <?php
 session_start();
-if(! isset($_SESSION['carrito'])){
-	header('Location: ./index.php');
+if (!isset($_SESSION['carrito'])) {
+    echo '<script language="javascript">alert("Tu carrito se encuentra vacio");window.location.href="cart.php"</script>';
 }
+
 $arreglo = $_SESSION['carrito'];
 ?>
 <!doctype html>
@@ -17,6 +18,8 @@ $arreglo = $_SESSION['carrito'];
     <title>Checkout example · Bootstrap v5.1</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/checkout/">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 
 
     <!-- Bootstrap core CSS -->
@@ -37,40 +40,37 @@ $arreglo = $_SESSION['carrito'];
         }
     }
     </style>
-
-
     <!-- Custom styles for this template -->
     <link href="css/form-validation.css" rel="stylesheet">
 </head>
 
 <body class="bg-light">
-
     <div class="container">
         <main>
             <div class="py-5 text-center">
                 <h2>Detalles del pedido</h2>
             </div>
-
             <div class="row g-5">
                 <div class="col-md-5 col-lg-4 order-md-last">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
                         <span class="text-primary">Tu carrito</span>
                         <span class="badge bg-primary rounded-pill"><?php echo count($arreglo) ?></span>
                     </h4>
-                    <?php 
-							$total = 0;
-							for($i=0;$i<count($arreglo);$i++){
-								$total = $total + ($arreglo[$i]['precio']*$arreglo[$i]['cantidad'])
-							
-					?>
+                    <?php
+                    $total = 0;
+                    for ($i = 0; $i < count($arreglo); $i++) {
+                        $total = $total + ($arreglo[$i]['precio'] * $arreglo[$i]['cantidad']);
+                    ?>
                     <ul class="list-group mb-3">
                         <li class="list-group-item d-flex justify-content-between lh-sm">
                             <div>
-                                <h6 class="my-0"><?php echo $arreglo[$i]['cantidad']; ?> x  <?php echo $arreglo[$i]['nombre']; ?></h6>
+                                <h6 class="my-0"><?php echo $arreglo[$i]['cantidad']; ?> x
+                                    <?php echo $arreglo[$i]['nombre']; ?></h6>
                             </div>
-                            <span class="text-muted">$<?php echo number_format($arreglo[$i]['precio'], 2, '.', ''); ?></span>
+                            <span
+                                class="text-muted">$<?php echo number_format($arreglo[$i]['precio'], 2, '.', ''); ?></span>
                         </li>
-                    <?php } ?>
+                        <?php } ?>
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Total (MXN)</span>
                             <strong>$ <?php echo number_format($total, 2, '.', ''); ?></strong>
@@ -79,12 +79,11 @@ $arreglo = $_SESSION['carrito'];
                 </div>
                 <div class="col-md-7 col-lg-8">
                     <h4 class="mb-3">Datos de entrega</h4>
-                    <form class="needs-validation" novalidate>
+                    <form class="needs-validation formDatos" action="thankyou.php" method="POST" novalidate>
                         <div class="row g-3">
                             <div class="col-12">
                                 <label for="address" class="form-label">Direccion</label>
-                                <input type="text" class="form-control" id="address" placeholder="1234 Main St"
-                                    required>
+                                <input type="text" class="form-control" name="direccion" required>
                                 <div class="invalid-feedback">
                                     Por favor ingresa una direccion de entrega.
                                 </div>
@@ -98,8 +97,7 @@ $arreglo = $_SESSION['carrito'];
                             </div>
                         </div>
                         <hr class="my-4">
-                        <h4 class="mb-3">Payment</h4>
-
+                        <h4 class="mb-3">Datos de pago</h4>
                         <div class="my-3">
                             <div class="form-check">
                                 <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked
@@ -111,7 +109,6 @@ $arreglo = $_SESSION['carrito'];
                                 <label class="form-check-label" for="debit">Tarjeta de debito</label>
                             </div>
                         </div>
-
                         <div class="row gy-3">
                             <div class="col-md-6">
                                 <label for="cc-name" class="form-label">Nombre</label>
@@ -121,7 +118,6 @@ $arreglo = $_SESSION['carrito'];
                                     Nombre en tarjeta requerido
                                 </div>
                             </div>
-
                             <div class="col-md-6">
                                 <label for="cc-number" class="form-label">Numero de tarjeta</label>
                                 <input type="text" class="form-control" id="cc-number" placeholder="" required>
@@ -129,7 +125,6 @@ $arreglo = $_SESSION['carrito'];
                                     Numero de tarjeta requerido
                                 </div>
                             </div>
-
                             <div class="col-md-3">
                                 <label for="cc-expiration" class="form-label">Fecha de exp.</label>
                                 <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
@@ -137,7 +132,6 @@ $arreglo = $_SESSION['carrito'];
                                     Fecha de expiracion requerido
                                 </div>
                             </div>
-
                             <div class="col-md-3">
                                 <label for="cc-cvv" class="form-label">CVV</label>
                                 <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
@@ -146,10 +140,8 @@ $arreglo = $_SESSION['carrito'];
                                 </div>
                             </div>
                         </div>
-
                         <hr class="my-4">
-
-                        <button class="w-100 btn btn-primary btn-lg" type="submit">Pagar ahora</button>
+                        <button class="w-100 btn btn-primary btn-lg btnEnviar" type="submit">Pagar ahora</button>
                     </form>
                 </div>
             </div>
@@ -165,9 +157,21 @@ $arreglo = $_SESSION['carrito'];
         </footer>
     </div>
 
+    <script type="text/javascript">
+    $('#formDatos').submit(function(ev) {
+        $.ajax({
+            type: $('#formDatos').attr('method'),
+            url: $('#formDatos').attr('action'),
+            data: $('#formDatos').serialize(),
+            success: function(data) {
+                alert('Datos enviados !!!');
+            }
+        });
+        ev.preventDefault();
+    });
+    </script>
 
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/form-validation.js"></script>
 </body>
 
