@@ -86,7 +86,7 @@ session_start();
                     ?>
                         <div class="card h-100">
                             <!-- Restaurant image-->
-                            <img class="card-img-top" src=".\assets\restaurantImages\<?php echo $fila['imagen']; ?>" height="300" width="400" />
+                            <img class="card-img-top" src=".\assets\restaurantImages\<?php echo $fila['imagen']; ?>" width="400" height="300"/>
                             <!-- Restaurant details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
